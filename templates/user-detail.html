@@ -4,13 +4,13 @@
 <div class="row">
   <div class="col">
     <img class="img-thumbnail"
-          src="{{user.img}}"
+          src="{{user.image_url}}"
           alt="https://kansai-resilience-forum.jp/wp-content/uploads/2019/02/IAFOR-Blank-Avatar-Image-1.jpg">
     <h2 id="{{user}}">{{user.first_name}} {{user.last_name}}</h2>
     <a class="btn btn-primary"
-            href="/users/{{user.userId}}/edit">Edit</a>
+            href="/users/{{user.id}}/edit">Edit</a>
 
-    <a href="/users/{{user.userId}}/delete"
+    <a href="/users/{{user.id}}/delete"
             class="btn btn-primary">Delete</a>
   </div>
 </div>

@@ -3,15 +3,17 @@
 {%block content%}
 <div class="mb-3 row mx-1">
   <div class="col">
-    <form action="/users/{{userId}}/edit" class="">
+    <form action="/users/new" method="POST" class="">
       <label class="col-6 col-form-label">First Name</label>
       <input name="firstName" required aria-label="firstName" class="form-control">
+
       <label class="col-6 col-form-label">Last Name</label>
-      <input name="lastName" required aria-label="lasName" class="form-control">
+      <input name="lastName" required aria-label="lastName" class="form-control">
+
       <label class="col-6 col-form-label">Image URL</label>
       <input name="imageURL" aria-label="imageURL" class="form-control" type="URL">
       <div class="align-items-end">
-        <button method='POST' action="/users/{{userId}}" class="btn btn-success">
+        <button type="submit" class="btn btn-success">
          Add
         </button>
       </div>

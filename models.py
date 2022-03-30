@@ -15,6 +15,12 @@ class User(db.Model):
 
     __tablename__ = "users"
 
+    def __repr__(self):
+        """Show info about user."""
+
+        u = self
+        return f"<User {u.id} {u.first_name} {u.last_name} {u.image_url}>"
+
     id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)
