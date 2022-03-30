@@ -23,4 +23,4 @@ class User(db.Model):
     last_name = db.Column(db.String(20),
                     nullable=False)
     image_url = db.Column(db.Text,
-                    nullable=True, default="https://kansai-resilience-forum.jp/wp-content/uploads/2019/02/IAFOR-Blank-Avatar-Image-1.jpg")
+                    nullable=True)
