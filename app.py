@@ -1,12 +1,14 @@
 """Blogly application."""
 
-from flask import Flask, render_template, redirect, session, request
+from flask import Flask, render_template, redirect, request, flash, session
 from models import db, connect_db, User
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
+app.config['SECRET_KEY'] = "asdf"
+
 
 connect_db(app)
 db.create_all()
@@ -34,33 +36,33 @@ def add_user():
     """ add user and redirect to /users """
     first_name = request.form["firstName"]
     last_name = request.form["lastName"]
-    img_url = request.form.get("imageURL")
+    img_url = request.form.get("imageURL") or None
 
     new_user = User(first_name=first_name,last_name=last_name,image_url=img_url)
     db.session.add(new_user)
     db.session.commit()
     return redirect("/users")
 
-@app.get("/users/<userId>")
-def show_user(userId):
+@app.get("/users/<user_id>")
+def show_user(user_id):
     """ show information about the given user """
-    user = User.query.get(userId)
+    user = User.query.get(user_id)
 
     return render_template("user-detail.html", title = "User Detail", user=user)
 
-@app.get("/users/<userId>/edit")
-def edit_user(userId):
-    """ Show the edit page for a user """
+@app.get("/users/<user_id>/edit")
+def edit_user(user_id):
+    """Show the edit page for a user """
 
-    user = User.query.get(userId)
+    user = User.query.get(user_id)
 
     return render_template("user-edit.html", title = "Edit a User", user=user)
 
-@app.post("/users/<userId>/edit")
-def process_edit(userId):
-    """ processes the edit form and return user to /users page """
+@app.post("/users/<user_id>/edit")
+def process_edit(user_id):
+    """processes the edit form and return user to /users page """
 
-    user = User.query.get(userId)
+    user = User.query.get(user_id)
 
     user.first_name = request.form["firstName"]
     user.last_name = request.form["lastName"]
@@ -70,14 +72,16 @@ def process_edit(userId):
 
     return redirect("/users")
 
-@app.post("/users/<userId>/delete")
-def delete_user(userId):
+@app.post("/users/<user_id>/delete")
+def delete_user(user_id):
     """ deletes the user """
 
-    user = User.query.get(userId)
-    user.query.delete()
+    user = User.query.get(user_id)
+    db.session.delete(user)
 
     db.session.commit()
+    flash("User successfully deleted")
+
 
     return redirect("/users")
 

@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from app import app, db
-from models import DEFAULT_IMAGE_URL, User
+from models import User
 
 # Let's configure our app to use a different database for tests
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///blogly_test"
@@ -58,3 +58,35 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
             self.assertIn("test_first", html)
             self.assertIn("test_last", html)
+
+    def test_show_add_form(self):
+        with self.client as c:
+            resp = c.get("/users/new")
+            self.assertEqual(resp.status_code, 200)
+            html = resp.get_data(as_text=True)
+            self.assertIn("firstName", html)
+            self.assertIn("lastName", html)
+            self.assertIn("imageURL", html)
+
+    def test_show_user(self):
+        with self.client as c:
+            user = User.query.filter("first_name" == "first_name").first()
+            resp = c.get(f'/users/{user.id}')
+            self.assertEqual(resp.status_code, 200)
+            html = resp.get_data(as_text=True)
+            self.assertIn("test_first", html)
+            self.assertIn("test_last", html)
+
+    def test_add_user(self):
+        with self.client as c:
+            resp = c.post("/users/new",
+                                data={"firstName" : "lyne", "lastName" : "cha", "imageURL" :""})
+            html = resp.get_data(as_text=True)
+            
+            user = User.query.filter_by(first_name = "lyne").one()
+            self.assertEqual(user.first_name, "lyne")
+            self.assertEqual(resp.status_code, 302)
+
+
+
+
