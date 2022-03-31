@@ -113,3 +113,51 @@ def commit_new_post(user_id):
     flash("Post added!")
 
     return redirect(f"/users/{user_id}")
+
+@app.get("/users/<user_id>/<title>")
+def show_post_detail_page(user_id,title):
+    """shows the post detail page """
+
+    user = User.query.get(user_id)
+    post = Post.query.filter_by(title=title).first()
+    return render_template("post-detail.html", user=user,post=post)
+
+@app.get("/users/<user_id>/<title>/edit")
+def show_edit_page(user_id,title):
+    """show the edit post page """
+
+    user = User.query.get(user_id)
+    post = Post.query.filter_by(title=title).first()
+
+    return render_template("edit-post.html", user=user, post=post)
+
+@app.post("/users/<user_id>/<title>/edit")
+def commit_post_edit(user_id,title):
+    """commit post edit to database and redirect"""
+
+    post = Post.query.filter_by(title=title).first()
+
+    post_title = request.form["post-title"]
+    post_content = request.form["post-content"]
+
+    post.title = post_title
+    post.content = post_content
+
+    db.session.add(post)
+    db.session.commit()
+
+    flash("Post Edited")
+
+    return redirect(f"/users/{user_id}/{post.title}")
+
+@app.post("/users/<user_id>/<title>/delete")
+def delete_post(user_id,title):
+    """delete the post"""
+
+    post = Post.query.filter_by(title=title).first()
+    db.session.delete(post)
+    db.session.commit()
+
+    flash("Post Deleted")
+
+    return redirect("/users/<user_id>")
