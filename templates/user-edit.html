@@ -11,12 +11,12 @@
     <h2 class="text-align-center">{{title}}</h2>
     <form method="POST" action="/users/{{user.id}}/edit" class="">
       <label class="col-6 col-form-label">First Name</label>
-      <input name="firstName" required aria-label="firstName" value="{{user.first_name}}" class="form-control">
+      <input name="first-name" required aria-label="first-name" value="{{user.first_name}}" class="form-control">
       <label class="col-6 col-form-label">Last Name</label>
-      <input name="lastName" required aria-label="lasName" value="{{user.last_name}}" class="form-control">
+      <input name="last-name" required aria-label="last-name" value="{{user.last_name}}" class="form-control">
       <label class="col-6 col-form-label" >Image URL</label>
-      <input name="imageURL" aria-label="imageURL" value="{{user.image_url}}" class="form-control" type="URL">
-      <div class="col align-items-end">
+      <input name="image-url" aria-label="image-url" value="{{user.image_url}}" class="form-control" type="URL">
+      <div class="align-content-end">
         <a method='GET' href="/users/{{user.id}}" class="btn btn-outline-info mx-2 mt-3">
           cancel
         </a>

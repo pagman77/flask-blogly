@@ -2,18 +2,30 @@
 
 {%block content%}
 <div class="row">
-  <div class="col-lg-2">
-    <img class="img-thumbnail"
-          src="{{user.image_url}}">
-          <!-- alt="profile picture"> -->
+  <div class="col">
+    <img class="img-thumbnail" src="{{user.image_url}}">
   </div>
-  <div class="col-lg-2">
-    <h2 id="{{user}}">{{user.first_name}} {{user.last_name}}</h2>
-    <a class="btn btn-primary"
-            href="/users/{{user.id}}/edit">Edit</a>
-    <form class="d-inline" method="POST" action="/users/{{user.id}}/delete">
-    <button type="submit" class="btn btn-primary">Delete</button>
+  <div class="col d-flex align-items-end">
+    <h2 class="d-block" id="{{user}}">{{user.first_name}} {{user.last_name}}</h2>
+    <a class="btn btn-primary mx-1" href="/users/{{user.id}}/edit">Edit</a>
+    <form method="POST" action="/users/{{user.id}}/delete">
+      <button type="submit" class="btn btn-primary mx-1">Delete</button>
     </form>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col">
+    {%for msg in get_flashed_messages()%}
+    <p>{{msg}}</p>
+    {%endfor%}
+    <h3>Posts</h3>
+    <ul class="mt-4">
+      {%for post in posts%}
+      <li class="mt-2"><a href="/">{{post.title}}</a></li>
+      {%endfor%}
+    </ul>
+    <a class="btn btn-primary mt-2" href="/users/{{user.id}}/new-post">Add Post</a>
   </div>
 </div>
 {%endblock%}

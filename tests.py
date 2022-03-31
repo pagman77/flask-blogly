@@ -82,7 +82,7 @@ class UserViewTestCase(TestCase):
             resp = c.post("/users/new",
                                 data={"firstName" : "lyne", "lastName" : "cha", "imageURL" :""})
             html = resp.get_data(as_text=True)
-            
+
             user = User.query.filter_by(first_name = "lyne").one()
             self.assertEqual(user.first_name, "lyne")
             self.assertEqual(resp.status_code, 302)

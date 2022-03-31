@@ -1,4 +1,6 @@
 """Models for Blogly."""
+from sqlite3 import Timestamp
+from xmlrpc.client import DateTime
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -30,3 +32,32 @@ class User(db.Model):
                     nullable=False)
     image_url = db.Column(db.Text,
                     nullable=True)
+
+
+class Post(db.Model):
+    """ Post Class """
+
+    __tablename__ = "posts"
+
+    def __repr__(self):
+        """Show info post information."""
+
+        p = self
+        return f"<Post {p.id} {p.title} Created at: \
+            {p.created_at} by user {p.user_id}>"
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+    title = db.Column(db.String(20),
+                    nullable=False)
+    content = db.Column(db.String(20),
+                    nullable=False)
+    created_at = db.Column(db.DateTime,
+                    nullable=False)
+    user_id = db.Column(
+                db.Integer,
+                db.ForeignKey("users.id"))
+
+    users = db.relationship('User',
+                            backref="posts")
