@@ -2,7 +2,8 @@
 
 {%block content%}
 <div class="row">
-  <div id="users">
+  <div class="col">
+    <h2 class="text-align-center">{{title}}</h2>
       <ul>
         {%for user in users%}
         <li><a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></li>

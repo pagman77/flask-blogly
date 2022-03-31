@@ -6,18 +6,19 @@
 
 <div class="mb-3 row mx-1">
   <div class="col">
-    <form action="/users/{{user.id}}/edit" class="">
+    <h2 class="text-align-center">{{title}}</h2>
+    <form method="POST" action="/users/{{user.id}}/edit" class="">
       <label class="col-6 col-form-label">First Name</label>
-      <input name="firstName" required aria-label="firstName" placeholder="{{user.first_name}}" class="form-control">
+      <input name="firstName" required aria-label="firstName" value="{{user.first_name}}" class="form-control">
       <label class="col-6 col-form-label">Last Name</label>
-      <input name="lastName" required aria-label="lasName" placeholder="{{user.last_name}}" class="form-control">
+      <input name="lastName" required aria-label="lasName" value="{{user.last_name}}" class="form-control">
       <label class="col-6 col-form-label" >Image URL</label>
-      <input name="imageURL" aria-label="imageURL" placeholder="{{user.image_url}}" class="form-control" type="URL">
-      <div class="align-items-end">
-        <button method='GET' action="/users/{{user.id}}" class="btn btn-primary-outline">
+      <input name="imageURL" aria-label="imageURL" value="{{user.image_url}}" class="form-control" type="URL">
+      <div class="col align-items-end">
+        <a method='GET' href="/users/{{user.id}}" class="btn btn-outline-info mx-2 mt-3">
           cancel
-        </button>
-        <button method='POST' action="/users/{{user.id}}" class="btn btn-success">
+        </a>
+        <button type="submit" class="btn btn-success mx-2 mt-3">
           Save
         </button>
       </div>

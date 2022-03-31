@@ -60,11 +60,11 @@ def edit_user(userId):
 def process_edit(userId):
     """ processes the edit form and return user to /users page """
 
-    user = User.query.get(userId) 
-    
+    user = User.query.get(userId)
+
     user.first_name = request.form["firstName"]
     user.last_name = request.form["lastName"]
-    user.img_url = request.form.get("imageURL")
+    user.image_url = request.form.get("imageURL")
 
     db.session.commit()
 
@@ -76,7 +76,8 @@ def delete_user(userId):
 
     user = User.query.get(userId)
     user.query.delete()
-    #query for userid find user then delete him
+
+    db.session.commit()
 
     return redirect("/users")
 
