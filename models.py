@@ -51,14 +51,15 @@ class Post(db.Model):
                    autoincrement=True)
     title = db.Column(db.String(20),
                     nullable=False)
-    content = db.Column(db.String(20),
+    content = db.Column(db.Text,
                     nullable=False)
     created_at = db.Column(db.DateTime,
                     nullable=False,
                     default = db.func.now())
     user_id = db.Column(
                 db.Integer,
-                db.ForeignKey("users.id"))
+                db.ForeignKey("users.id"),
+                nullable=False)
 
     users = db.relationship('User',
                             backref="posts")

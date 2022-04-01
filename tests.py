@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from app import app, db
-from models import User
+from models import User, Post
 
 # Let's configure our app to use a different database for tests
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///blogly_test"
@@ -64,9 +64,9 @@ class UserViewTestCase(TestCase):
             resp = c.get("/users/new")
             self.assertEqual(resp.status_code, 200)
             html = resp.get_data(as_text=True)
-            self.assertIn("firstName", html)
-            self.assertIn("lastName", html)
-            self.assertIn("imageURL", html)
+            self.assertIn("First Name", html)
+            self.assertIn("Last Name", html)
+            self.assertIn("Image URL", html)
 
     def test_show_user(self):
         with self.client as c:
@@ -80,13 +80,21 @@ class UserViewTestCase(TestCase):
     def test_add_user(self):
         with self.client as c:
             resp = c.post("/users/new",
-                                data={"firstName" : "lyne", "lastName" : "cha", "imageURL" :""})
+                                data={"first-name" : "lyne", "last-name" : "cha", "image-url" :""},
+                                follow_redirects=True)
             html = resp.get_data(as_text=True)
 
-            user = User.query.filter_by(first_name = "lyne").one()
-            self.assertEqual(user.first_name, "lyne")
-            self.assertEqual(resp.status_code, 302)
+            self.assertIn("lyne", html)
+            self.assertEqual(resp.status_code, 200)
 
-
+    def test_add_post(self):
+        with self.client as c:
+            user = User.query.filter("first_name" == "first_name").first()
+            resp = c.post(f"/users/{user.id}/posts/new",
+                            data={"post-title": "some title", "post-content" : "blah blah"},
+                            follow_redirects=True)
+            html = resp.get_data(as_text=True)
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("some title", html)
 
 

@@ -5,13 +5,13 @@
 
 <div class="mb-3 row mx-1">
     <div class="col">
-      <form action="/users/{{user.id}}/{{post.title}}/edit" method="POST" class="">
+      <form action="/posts/{{post.id}}/edit" method="POST" class="">
         <label class="col-6 col-form-label">Title</label>
         <input name="post-title" value="{{post.title}}" required aria-label="post-title" class="form-control">
-  
+
         <label class="col-6 col-form-label-lg">Post Content</label>
         <input name="post-content" value="{{post.content}}" required aria-label="post-content" class="form-control">
-  
+
         <div class="align-content-end">
           <a method='GET' href="/users/{{user.id}}" class="btn btn-outline-info mx-2 mt-3">
             cancel
