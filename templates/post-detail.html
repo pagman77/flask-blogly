@@ -9,7 +9,7 @@
         <span><i>By {{user.first_name}} {{user.last_name}}</i></span>
     </div>
     <div class="col">
-        <a class="btn btn-primary-outline mx-1" href="/users/{{user.id}}">Cancel</a>
+        <a class="btn btn-primary-outline mx-1" href="/users/{{post.user_id}}">Cancel</a>
         <a class="btn btn-primary mx-1" href="/posts/{{post.id}}/edit">Edit</a>
         <form method="POST" action="/posts/{{post.id}}/delete">
             <button type="submit" class="btn btn-primary mx-1">Delete</button>

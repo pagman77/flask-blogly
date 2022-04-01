@@ -16,12 +16,12 @@ db.create_all()
 
 @app.get("/")
 def redirect_to_users():
-    """ redirects to the list of users """
+    """Redirects to the list of users """
     return redirect("/users")
 
 @app.get("/users")
 def show_users():
-    """ query the database and show all users """
+    """Query the database and show all users """
 
     users = User.query.all()
 
@@ -29,12 +29,12 @@ def show_users():
 
 @app.get("/users/new")
 def show_add_form():
-    """ shows the add form for users """
+    """Shows the add form for users """
     return render_template("new-user-form.html", title = "Create New User")
 
 @app.post("/users/new")
 def add_user():
-    """ add user and redirect to /users """
+    """Add user and redirect to /users """
     first_name = request.form["first-name"]
     last_name = request.form["last-name"]
     img_url = request.form.get("image-url") or None
@@ -46,7 +46,7 @@ def add_user():
 
 @app.get("/users/<user_id>")
 def show_user(user_id):
-    """ show information about the given user """
+    """Show information about the given user """
     user = User.query.get(user_id)
 
     posts = user.posts
@@ -62,7 +62,7 @@ def edit_user(user_id):
 
 @app.post("/users/<user_id>/edit")
 def process_edit(user_id):
-    """processes the edit form and return user to /users page """
+    """Processes the edit form and return user to /users page """
 
     user = User.query.get(user_id)
 
@@ -77,11 +77,14 @@ def process_edit(user_id):
 
 @app.post("/users/<user_id>/delete")
 def delete_user(user_id):
-    """ deletes the user """
+    """Deletes the user """
 
     user = User.query.get(user_id)
-    db.session.delete(user)
 
+    Post.query.filter_by(user_id=user_id).delete()
+    db.session.commit()
+
+    db.session.delete(user)
     db.session.commit()
 
     flash("User successfully deleted")
@@ -89,7 +92,7 @@ def delete_user(user_id):
 
 @app.get("/users/<user_id>/posts/new")
 def add_new_post(user_id):
-    """display new post form"""
+    """Display new post form"""
 
     user = User.query.get(user_id)
 
@@ -98,15 +101,12 @@ def add_new_post(user_id):
 
 @app.post("/users/<user_id>/posts/new")
 def commit_new_post(user_id):
-    """commit post to database and redirect"""
-
-    user = User.query.get(user_id)
+    """Commit post to database and redirect"""
 
     post_title = request.form["post-title"]
     post_content = request.form["post-content"]
 
     post = Post(title = post_title, content=post_content, user_id = user_id)
-
 
     db.session.add(post)
     db.session.commit()
@@ -117,25 +117,22 @@ def commit_new_post(user_id):
 
 @app.get("/posts/<post_id>")
 def show_post_detail_page(post_id):
-    """shows the post detail page """
+    """Shows the post detail page """
 
     post = Post.query.get(post_id)
-    user = User.query.get(post.user_id)
-    return render_template("post-detail.html", user=user,post=post)
+    return render_template("post-detail.html",post=post)
 
 @app.get("/posts/<post_id>/edit")
 def show_edit_page(post_id):
-    """show the edit post page """
+    """Show the edit post page """
 
     post = Post.query.get(post_id)
-    user_id = post.user_id
-    user = User.query.get(user_id)
 
-    return render_template("edit-post.html", user=user, post=post)
+    return render_template("edit-post.html", post=post)
 
 @app.post("/posts/<post_id>/edit")
 def commit_post_edit(post_id):
-    """commit post edit to database and redirect"""
+    """Commit post edit to database and redirect"""
 
     post = Post.query.get(post_id)
 
@@ -154,7 +151,7 @@ def commit_post_edit(post_id):
 
 @app.post("/posts/<post_id>/delete")
 def delete_post(post_id):
-    """delete the post"""
+    """Delete the post"""
 
     post = Post.query.get(post_id)
     user_id = post.user_id

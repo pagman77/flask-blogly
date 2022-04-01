@@ -61,5 +61,5 @@ class Post(db.Model):
                 db.ForeignKey("users.id"),
                 nullable=False)
 
-    users = db.relationship('User',
+    user = db.relationship('User',
                             backref="posts")

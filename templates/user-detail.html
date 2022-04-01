@@ -1,6 +1,6 @@
-{%extends "base.html"%}
+{% extends "base.html" %}
 
-{%block content%}
+{% block content %}
 <div class="row">
   <div class="col">
     <img class="img-thumbnail" src="{{user.image_url}}">
@@ -16,16 +16,13 @@
 
 <div class="row mt-5">
   <div class="col">
-    {%for msg in get_flashed_messages()%}
-    <p>{{msg}}</p>
-    {%endfor%}
     <h3>Posts</h3>
     <ul class="mt-4">
-      {%for post in posts%}
+      {% for post in posts %}
       <li class="mt-2"><a href="/posts/{{post.id}}">{{post.title}}</a></li>
-      {%endfor%}
+      {% endfor %}
     </ul>
     <a class="btn btn-primary mt-2" href="/users/{{user.id}}/posts/new">Add Post</a>
   </div>
 </div>
-{%endblock%}
+{% endblock %}
