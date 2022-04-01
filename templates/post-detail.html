@@ -1,12 +1,12 @@
-{%extends "base.html"%}
+{% extends "base.html" %}
 
 
-{%block content%}
+{% block content %}
 <div class="row mb-5">
     <div class="col-12">
         <h2 class="display-4 text-center mb-5">{{post.title}}</h2>
     <div class="col-12">
-        <p class="lead">{{post.content}} </p>
+        <p class="lead">{{post.content}}</p>
         <p class="text-center fw-light"><i>By {{post.user.first_name}} {{post.user.last_name}}</i></p>
     </div>
     </div>
@@ -14,7 +14,7 @@
 </div>
 <div class="row">
     <div class="col-12">
-      <form class="text-center">
+      <form class="text-center mb-5">
         <button class="btn btn-outline-info"
                 formaction="/users/{{post.user_id}}"
                 formmethod="GET">Cancel</button>
@@ -30,4 +30,4 @@
     </div>
 </div>
 
-{%endblock%}
+{% endblock %}

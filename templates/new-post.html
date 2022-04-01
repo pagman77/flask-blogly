@@ -1,9 +1,9 @@
-{%extends "base.html"%}
+{% extends "base.html" %}
 
-{%block content%}
+{% block content %}
 <div class="mb-3 row mx-1">
   <div class="col-12">
-    <h2 class="text-center display-4 mb-5">New Post</h3>
+    <h2 class="text-center display-4 mb-5">{{title}}</h3>
     <form action="/users/{{user.id}}/posts/new" method="POST">
 
       <label class="form-label display-6 mt-2">Title</label>
@@ -23,4 +23,4 @@
         </button>
     </form>
   </div>
-{%endblock%}
+{% endblock %}

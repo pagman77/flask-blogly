@@ -1,8 +1,9 @@
-{%extends "base.html"%}
+{% extends "base.html" %}
 
-{%block content%}
+{% block content %}
 <div class="mb-3 row mx-1">
   <div class="col">
+    <h2 class="text-center display-4 mb-5">{{title}}</h3>
     <form action="/users/new" method="POST" class="">
       <label class="col-6 col-form-label">First Name</label>
       <input name="first-name" required aria-label="first-name" class="form-control">
@@ -19,4 +20,4 @@
       </div>
     </form>
   </div>
-{%endblock%}
+{% endblock %}
