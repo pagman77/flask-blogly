@@ -2,22 +2,25 @@
 
 {%block content%}
 <div class="mb-3 row mx-1">
-  <div class="col">
-    <form action="/users/{{user.id}}/posts/new" method="POST" class="">
-      <label class="col-6 col-form-label">Title</label>
-      <input name="post-title" required aria-label="post-title" class="form-control">
+  <div class="col-12">
+    <h2 class="text-center display-4 mb-5">New Post</h3>
+    <form action="/users/{{user.id}}/posts/new" method="POST">
 
-      <label class="col-6 col-form-label-lg">Content</label>
-      <input name="post-content" required aria-label="post-content" class="form-control">
+      <label class="form-label display-6 mt-2">Title</label>
+      <input name="post-title" required aria-label="post-title" class="form-control mt-2">
 
-      <div class="align-content-end">
-        <a method='GET' href="/users/{{user.id}}" class="btn btn-outline-info mx-2 mt-3">
+      <label class="form-label display-6 mt-4">Content</label>
+      <textarea name="post-content" rows="6" required aria-label="post-content" class="form-control mt-2"></textarea>
+
+
+        <button formmethod='GET'
+                formaction="/users/{{user.id}}"
+                class="btn btn-outline-info mt-4">
           cancel
-        </a>
-        <button type="submit" class="btn btn-success mx-2 mt-3">
+        </button>
+        <button type="submit" class="btn btn-success mt-4 mx-2">
          Add
         </button>
-      </div>
     </form>
   </div>
 {%endblock%}

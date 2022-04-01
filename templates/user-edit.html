@@ -8,23 +8,30 @@
 
 <div class="mb-3 row mx-1">
   <div class="col">
-    <h2 class="text-align-center">{{title}}</h2>
+    <h2 class="text-center display-4 mb-5">{{title}}</h2>
     <form method="POST" action="/users/{{user.id}}/edit" class="">
-      <label class="col-6 col-form-label">First Name</label>
-      <input name="first-name" required aria-label="first-name" value="{{user.first_name}}" class="form-control">
-      <label class="col-6 col-form-label">Last Name</label>
-      <input name="last-name" required aria-label="last-name" value="{{user.last_name}}" class="form-control">
-      <label class="col-6 col-form-label" >Image URL</label>
-      <input name="image-url" aria-label="image-url" value="{{user.image_url}}" class="form-control" type="URL">
-      <div class="align-content-end">
-        <a method='GET' href="/users/{{user.id}}" class="btn btn-outline-info mx-2 mt-3">
-          cancel
-        </a>
-        <button type="submit" class="btn btn-success mx-2 mt-3">
-          Save
-        </button>
-      </div>
+      <label class="form-label display-6 mt-1">First Name</label>
+      <input name="first-name" required aria-label="first-name"
+            value="{{user.first_name}}" class="form-control mb-4">
+
+      <label class="form-label display-6 mt-1">Last Name</label>
+      <input name="last-name" required aria-label="last-name"
+            value="{{user.last_name}}" class="form-control mb-4">
+
+      <label class="form-label display-6 mt-1">Image URL</label>
+      <input name="image-url" aria-label="image-url"
+            value="{{user.image_url}}" class="form-control mb-5" type="URL">
+
+      <button formmethod='GET'
+      formaction="/users/{{user.id}}"
+      class="btn btn-outline-info">
+        cancel
+      </button>
+      <button type="submit" class="btn btn-success mx-2">
+        Save
+      </button>
     </form>
   </div>
+</div>
 
   {%endblock%}

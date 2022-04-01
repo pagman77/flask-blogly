@@ -2,23 +2,32 @@
 
 
 {%block content%}
-<div class="row">
-    <div class="col">
-        <h2>{{post.title}}</h2>
-        <p>{{post.content}}</p>
-        <span><i>By {{user.first_name}} {{user.last_name}}</i></span>
+<div class="row mb-5">
+    <div class="col-12">
+        <h2 class="display-4 text-center mb-5">{{post.title}}</h2>
+    <div class="col-12">
+        <p class="lead">{{post.content}} </p>
+        <p class="text-center fw-light"><i>By {{post.user.first_name}} {{post.user.last_name}}</i></p>
     </div>
-    <div class="col">
-        <a class="btn btn-primary-outline mx-1" href="/users/{{post.user_id}}">Cancel</a>
-        <a class="btn btn-primary mx-1" href="/posts/{{post.id}}/edit">Edit</a>
-        <form method="POST" action="/posts/{{post.id}}/delete">
-            <button type="submit" class="btn btn-primary mx-1">Delete</button>
-        </form>
+    </div>
+  </div>
+</div>
+<div class="row">
+    <div class="col-12">
+      <form class="text-center">
+        <button class="btn btn-outline-info"
+                formaction="/users/{{post.user_id}}"
+                formmethod="GET">Cancel</button>
+
+        <button class="btn btn-info mx-2"
+                formaction="/posts/{{post.id}}/edit"
+                formmethod="GET">Edit</button>
+
+        <button formaction="/posts/{{post.id}}/delete"
+                formmethod="POST"
+                class="btn btn-danger">Delete</button>
+      </form>
     </div>
 </div>
-
-{%for msg in get_flashed_messages()%}
-    <p class="mt-2 text-success"><i>{{msg}}</i></p>
-{%endfor%}
 
 {%endblock%}

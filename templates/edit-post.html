@@ -3,23 +3,27 @@
 
 {%block content%}
 
-<div class="mb-3 row mx-1">
-    <div class="col">
-      <form action="/posts/{{post.id}}/edit" method="POST" class="">
-        <label class="col-6 col-form-label">Title</label>
-        <input name="post-title" value="{{post.title}}" required aria-label="post-title" class="form-control">
+<div class="row">
+  <div class="col-12">
+      <h2 class="text-center display-4 mb-5">Edit Post</h2>
+      <form action="/posts/{{post.id}}/edit" method="POST">
 
-        <label class="col-6 col-form-label-lg">Post Content</label>
-        <input name="post-content" value="{{post.content}}" required aria-label="post-content" class="form-control">
+        <label class="form-label display-6 mt-1">Title</label>
+        <input name="post-title" value="{{post.title}}"
+              required aria-label="post-title" class="form-control mb-4">
 
-        <div class="align-content-end">
-          <a href="/users/{{post.user_id}}" class="btn btn-outline-info mx-2 mt-3">
-            cancel
-          </a>
-          <button type="submit" class="btn btn-success mx-2 mt-3">
-           Edit
-          </button>
-        </div>
+        <label class="form-label display-6 mt-1">Post Content</label>
+        <textarea name="post-content" row="5" placeholder="{{post.content}}"
+                required aria-label="post-content" class="form-control mb-4"></textarea>
+
+        <button formaction="/users/{{post.user_id}}"
+                formmethod="GET"
+                class="btn btn-outline-info">
+          cancel
+        </button>
+        <button type="submit" class="btn btn-success mx-2">
+          Submit Changes
+        </button>
       </form>
     </div>
 
